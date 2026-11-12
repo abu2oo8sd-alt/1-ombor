@@ -11,6 +11,8 @@ from aiogram.types import (
 )
 
 TOKEN = os.getenv("BOT_TOKEN")
+BASE_URL = os.getenv("RENDER_EXTERNAL_URL")
+WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET")
 
 if not TOKEN:
     raise ValueError("BOT_TOKEN topilmadi!")
