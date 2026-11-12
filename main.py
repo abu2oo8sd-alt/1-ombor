@@ -1,11 +1,12 @@
 
-import asyncio
 import os
 
+from aiohttp import web
 from aiogram import Bot, Dispatcher
 from aiogram.filters import CommandStart
 from aiogram.types import (
     Message,
+    Update,
     ReplyKeyboardMarkup,
     KeyboardButton
 )
@@ -14,8 +15,16 @@ TOKEN = os.getenv("BOT_TOKEN")
 BASE_URL = os.getenv("RENDER_EXTERNAL_URL")
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET")
 
+WEBHOOK_PATH = "/telegram-webhook"
+
 if not TOKEN:
     raise ValueError("BOT_TOKEN topilmadi!")
+
+if not BASE_URL:
+    raise ValueError("RENDER_EXTERNAL_URL topilmadi!")
+
+if not WEBHOOK_SECRET:
+    raise ValueError("WEBHOOK_SECRET topilmadi!")
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
@@ -65,9 +74,54 @@ async def category_handler(message: Message):
         )
 
 
-async def main():
-    await dp.start_polling(bot)
+async def handle_webhook(request):
+    secret = request.headers.get(
+        "X-Telegram-Bot-Api-Secret-Token"
+    )
+
+    if secret != WEBHOOK_SECRET:
+        raise web.HTTPForbidden()
+
+    data = await request.json()
+
+    update = Update.model_validate(
+        data,
+        context={"bot": bot}
+    )
+
+    await dp.feed_update(bot, update)
+
+    return web.Response(text="OK")
+
+
+async def on_startup(app):
+    await bot.set_webhook(
+        url=f"{BASE_URL}{WEBHOOK_PATH}",
+        secret_token=WEBHOOK_SECRET
+    )
+    print("Webhook muvaffaqiyatli o'rnatildi!")
+
+
+async def on_shutdown(app):
+    await bot.session.close()
+
+
+app = web.Application()
+
+app.router.add_get(
+    "/",
+    lambda request: web.Response(text="Bot ishlayapti!")
+)
+
+app.router.add_post(
+    WEBHOOK_PATH,
+    handle_webhook
+)
+
+app.on_startup.append(on_startup)
+app.on_cleanup.append(on_shutdown)
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    port = int(os.getenv("PORT", 10000))
+    web.run_app(app, host="0.0.0.0", port=port)
