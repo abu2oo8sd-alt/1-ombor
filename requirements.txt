@@ -1,1 +1,4 @@
+
 aiogram==3.31.0
+aiohttp
+supabase
