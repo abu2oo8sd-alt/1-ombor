@@ -1,2 +1,2 @@
-# 1-ombor
+# AutoCAD Telegram Bot.
 mening 1- loiham
