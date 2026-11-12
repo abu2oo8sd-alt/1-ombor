@@ -119,15 +119,6 @@ T = {
         "cancel": "❌ Bekor qilish",
         "admin_added_by": "Admin qo‘shildi: {id}",
         "top_line": "{n}. {title} — {count} marta",
-        "favorites": "⭐ Sevimlilar", "request": "📝 Loyiha so‘rash", "formats": "📄 Fayl formatlari",
-        "edit_project": "✏️ Loyihani tahrirlash", "delete_project": "🗑 Loyihani o‘chirish",
-        "enter_project_id": "Loyiha ID raqamini yuboring:",
-        "enter_new_title": "Yangi loyiha nomini yuboring (o‘zgartirmaslik uchun - yozing):",
-        "enter_new_description": "Yangi tavsifni yuboring (o‘zgartirmaslik uchun - yozing):",
-        "confirm_delete": "Loyihani o‘chirishni tasdiqlaysizmi? HA yoki YO‘Q deb yozing.",
-        "request_prompt": "Qanday loyiha kerakligini yozing:",
-        "request_saved": "✅ So‘rovingiz adminga yuborildi.",
-        "no_favorites": "Sevimli loyihalaringiz hozircha yo‘q.",
     },
     "ru": {
         "welcome": "👋 Добро пожаловать в AutoCAD Projects Bot!\nВыберите язык:",
@@ -185,15 +176,6 @@ T = {
         "cancel": "❌ Отмена",
         "admin_added_by": "Добавлен администратор: {id}",
         "top_line": "{n}. {title} — {count} раз",
-        "favorites": "⭐ Избранное", "request": "📝 Запросить проект", "formats": "📄 Форматы файлов",
-        "edit_project": "✏️ Редактировать проект", "delete_project": "🗑 Удалить проект",
-        "enter_project_id": "Отправьте ID проекта:",
-        "enter_new_title": "Отправьте новое название (или - чтобы не менять):",
-        "enter_new_description": "Отправьте новое описание (или - чтобы не менять):",
-        "confirm_delete": "Подтвердить удаление? Напишите ДА или НЕТ.",
-        "request_prompt": "Опишите, какой проект вам нужен:",
-        "request_saved": "✅ Ваш запрос отправлен администратору.",
-        "no_favorites": "В избранном пока нет проектов.",
     },
     "en": {
         "welcome": "👋 Welcome to AutoCAD Projects Bot!\nChoose your language:",
@@ -251,15 +233,6 @@ T = {
         "cancel": "❌ Cancel",
         "admin_added_by": "Administrator added: {id}",
         "top_line": "{n}. {title} — {count} downloads",
-        "favorites": "⭐ Favorites", "request": "📝 Request a project", "formats": "📄 File formats",
-        "edit_project": "✏️ Edit project", "delete_project": "🗑 Delete project",
-        "enter_project_id": "Send the project ID:",
-        "enter_new_title": "Send a new title (or - to keep it):",
-        "enter_new_description": "Send a new description (or - to keep it):",
-        "confirm_delete": "Confirm deletion? Type YES or NO.",
-        "request_prompt": "Describe the project you need:",
-        "request_saved": "✅ Your request was sent to the administrator.",
-        "no_favorites": "You have no favorite projects yet.",
     },
     "tg": {
         "welcome": "👋 Ба AutoCAD Projects Bot хуш омадед!\nЗабонро интихоб кунед:",
@@ -317,36 +290,43 @@ T = {
         "cancel": "❌ Бекор кардан",
         "admin_added_by": "Маъмур илова шуд: {id}",
         "top_line": "{n}. {title} — {count} бор",
-        "favorites": "⭐ Дӯстдоштаҳо", "request": "📝 Дархости лоиҳа", "formats": "📄 Форматҳои файл",
-        "edit_project": "✏️ Таҳрири лоиҳа", "delete_project": "🗑 Нест кардани лоиҳа",
-        "enter_project_id": "ID-и лоиҳаро фиристед:",
-        "enter_new_title": "Номи навро фиристед (ё - барои нигоҳ доштан):",
-        "enter_new_description": "Тавсифи навро фиристед (ё - барои нигоҳ доштан):",
-        "confirm_delete": "Нест карданро тасдиқ мекунед? ҲА ё НЕ нависед.",
-        "request_prompt": "Лоиҳаи лозимаро тавсиф кунед:",
-        "request_saved": "✅ Дархости шумо ба маъмур фиристода шуд.",
-        "no_favorites": "Ҳоло лоиҳаи дӯстдошта нест.",
         "language_saved": "✅ Забон нигоҳ дошта шуд.",
     },
 }
 
 CATEGORIES = [
-    "🏠 Uy", "🏢 Ofis", "🏭 Zavod", "🛋 Interyer dizayn",
-    "🏫 Maktab va bog‘cha", "🛍 Savdo markazi", "🛣 Yo‘l va ko‘prik",
-    "🏗 Boshqa binolar", "☕ Kichik kafelar", "🚏 Aqlli bekatlar",
-    "🚗 Avtomobillar", "📦 Buyumlar", "⚡ Elektr chizmalari",
-    "🚰 Suv va kanalizatsiya", "🧱 Konstruksiya va fundament",
-    "🪑 Mebel chizmalari", "🌳 Landshaft dizayn", "🧩 Tayyor DWG bloklar",
-    "📐 Tayyor shablonlar", "🎨 Hatch va teksturalar", "📏 Tayyor detallar",
-    "🔤 Shriftlar va chiziq turlari", "🚜 Ferma va chorvachilik loyihalari",
+    "🏠 Uy",
+    "🏢 Ofis",
+    "🏭 Zavod",
+    "🛋 Interyer dizayn",
+    "🏫 Maktab va bog‘cha",
+    "🛍 Savdo markazi",
+    "🛣 Yo‘l va ko‘prik",
+    "🏗 Boshqa binolar",
+    "☕ Kichik kafelar",
+    "🚏 Aqlli bekatlar",
+    "🚗 Avtomobillar",
+    "📦 Buyumlar",
+    "⚡ Elektr chizmalari",
+    "🚰 Suv va kanalizatsiya",
+    "🧱 Konstruksiya va fundament",
+    "🪑 Mebel chizmalari",
+    "🌳 Landshaft dizayn",
+    "🧩 Tayyor DWG bloklar",
+    "📐 Tayyor shablonlar",
+    "🎨 Hatch va teksturalar",
+    "📏 Tayyor detallar",
+    "🔤 Shriftlar va chiziq turlari",
+    "🚜 Ferma va chorvachilik loyihalari",
 ]
+
 CATEGORY_TRANSLATIONS = {
     "uz": CATEGORIES,
     "ru": [
         "🏠 Дом", "🏢 Офис", "🏭 Завод", "🛋 Дизайн интерьера",
         "🏫 Школа и детский сад", "🛍 Торговый центр", "🛣 Дороги и мосты",
         "🏗 Другие здания", "☕ Небольшие кафе", "🚏 Умные остановки",
-        "🚗 Автомобили", "📦 Предметы", "⚡ Электрические чертежи",
+        "🚗 Автомобили", "📦 Предметы", "⚡ Электрические схемы",
         "🚰 Водоснабжение и канализация", "🧱 Конструкции и фундамент",
         "🪑 Чертежи мебели", "🌳 Ландшафтный дизайн", "🧩 Готовые DWG-блоки",
         "📐 Готовые шаблоны", "🎨 Штриховки и текстуры", "📏 Готовые детали",
@@ -357,26 +337,28 @@ CATEGORY_TRANSLATIONS = {
         "🏫 School and kindergarten", "🛍 Shopping mall", "🛣 Roads and bridges",
         "🏗 Other buildings", "☕ Small cafes", "🚏 Smart bus stops",
         "🚗 Vehicles", "📦 Objects", "⚡ Electrical drawings",
-        "🚰 Water and sewerage", "🧱 Structures and foundations",
+        "🚰 Water supply and sewerage", "🧱 Structures and foundations",
         "🪑 Furniture drawings", "🌳 Landscape design", "🧩 Ready DWG blocks",
         "📐 Ready templates", "🎨 Hatches and textures", "📏 Ready details",
-        "🔤 Fonts and linetypes", "🚜 Farms and livestock projects",
+        "🔤 Fonts and linetypes", "🚜 Farm and livestock projects",
     ],
     "tg": [
         "🏠 Хона", "🏢 Идора", "🏭 Завод", "🛋 Тарҳи дохилӣ",
         "🏫 Мактаб ва кӯдакистон", "🛍 Маркази савдо", "🛣 Роҳ ва пул",
-        "🏗 Биноҳои дигар", "☕ Қаҳвахонаҳои хурд", "🚏 Истгоҳҳои оқил",
+        "🏗 Биноҳои дигар", "☕ Қаҳвахонаҳои хурд", "🚏 Истгоҳҳои ҳушманд",
         "🚗 Автомобилҳо", "📦 Ашё", "⚡ Нақшаҳои барқӣ",
-        "🚰 Обтаъминкунӣ ва канализатсия", "🧱 Сохтмон ва таҳкурсӣ",
+        "🚰 Обтаъминкунӣ ва канализатсия", "🧱 Сохтор ва таҳкурсӣ",
         "🪑 Нақшаҳои мебел", "🌳 Тарҳи ландшафт", "🧩 Блокҳои тайёри DWG",
-        "📐 Шаблонҳои тайёр", "🎨 Ҳетч ва текстураҳо", "📏 Ҷузъиёти тайёр",
-        "🔤 Ҳарфҳо ва намудҳои хат", "🚜 Ферма ва чорводорӣ",
+        "📐 Шаблонҳои тайёр", "🎨 Ҳач ва текстураҳо", "📏 Ҷузъиёти тайёр",
+        "🔤 Ҳарфҳо ва намудҳои хат", "🚜 Лоиҳаҳои ферма ва чорводорӣ",
     ],
 }
+
 CATEGORY_TO_CANONICAL = {
     CATEGORY_TRANSLATIONS[lang][i]: CATEGORIES[i]
     for lang in LANGUAGES for i in range(len(CATEGORIES))
 }
+
 
 
 # =========================================================
@@ -400,23 +382,6 @@ class ContactAdmin(StatesGroup):
 class AdminManage(StatesGroup):
     add_id = State()
     remove_id = State()
-
-
-class ProjectAdmin(StatesGroup):
-    edit_id = State()
-    edit_title = State()
-    edit_category = State()
-    edit_description = State()
-    delete_id = State()
-    delete_confirm = State()
-
-
-class UserRequest(StatesGroup):
-    text = State()
-
-
-class FormatFilter(StatesGroup):
-    value = State()
 
 
 # =========================================================
@@ -491,35 +456,36 @@ def language_keyboard():
 
 
 def main_keyboard(lang: str, admin: bool = False):
+    # Bosh menyuda avval asosiy tugmalar, keyin 23 ta kategoriya ko‘rinadi.
     rows = [
         [KeyboardButton(text=T[lang]["search"]),
          KeyboardButton(text=T[lang]["top"])],
         [KeyboardButton(text=T[lang]["contact"]),
          KeyboardButton(text=T[lang]["settings"])],
-        [KeyboardButton(text=T[lang]["favorites"]),
-         KeyboardButton(text=T[lang]["request"])],
-        [KeyboardButton(text=T[lang]["formats"])],
     ]
+
     if admin:
         rows += [
             [KeyboardButton(text=T[lang]["add_project"]),
              KeyboardButton(text=T[lang]["projects"])],
-            [KeyboardButton(text=T[lang]["edit_project"]),
-             KeyboardButton(text=T[lang]["delete_project"])],
             [KeyboardButton(text=T[lang]["admins"])],
         ]
+
+    names = CATEGORY_TRANSLATIONS[lang]
+    for i in range(0, len(names), 2):
+        row = [KeyboardButton(text=names[i])]
+        if i + 1 < len(names):
+            row.append(KeyboardButton(text=names[i + 1]))
+        rows.append(row)
+
     rows.append([KeyboardButton(text=T[lang]["back"])])
     return ReplyKeyboardMarkup(keyboard=rows, resize_keyboard=True)
 
 
 def category_keyboard(lang: str):
     names = CATEGORY_TRANSLATIONS[lang]
-    rows = []
-    for i in range(0, len(names), 2):
-        row = [KeyboardButton(text=names[i])]
-        if i + 1 < len(names):
-            row.append(KeyboardButton(text=names[i + 1]))
-        rows.append(row)
+    rows = [[KeyboardButton(text=names[i]), KeyboardButton(text=names[i+1])]
+            for i in range(0, len(names), 2)]
     rows.append([KeyboardButton(text=T[lang]["back"])])
     return ReplyKeyboardMarkup(keyboard=rows, resize_keyboard=True)
 
@@ -650,30 +616,6 @@ async def general_menu_router(message: Message, state: FSMContext):
             await show_admins(message, lang)
         return
 
-    if text == T[lang]["favorites"]:
-        await show_favorites(message, lang)
-        return
-
-    if text == T[lang]["request"]:
-        await state.set_state(UserRequest.text)
-        await message.answer(T[lang]["request_prompt"])
-        return
-
-    if text == T[lang]["formats"]:
-        await state.set_state(FormatFilter.value)
-        await message.answer("📄 Formatni yozing: DWG, DXF, PDF yoki ZIP")
-        return
-
-    if text == T[lang]["edit_project"] and await is_admin(user_id):
-        await state.set_state(ProjectAdmin.edit_id)
-        await message.answer(T[lang]["enter_project_id"])
-        return
-
-    if text == T[lang]["delete_project"] and await is_admin(user_id):
-        await state.set_state(ProjectAdmin.delete_id)
-        await message.answer(T[lang]["enter_project_id"])
-        return
-
     canonical = CATEGORY_TO_CANONICAL.get(text)
     if canonical:
         await send_category_projects(message, canonical, lang)
@@ -747,7 +689,6 @@ async def save_project(message: Message, state: FSMContext):
                 "description": data.get("description", ""),
                 "telegram_file_id": channel_file_id,
                 "download_count": 0,
-                "file_format": (os.path.splitext(message.document.file_name or "")[1].lstrip(".").upper() or "UNKNOWN"),
             })
         )
         logger.info("3-QADAM: Supabase saqlash muvaffaqiyatli")
@@ -840,14 +781,11 @@ async def search_projects(message: Message, state: FSMContext):
         result = await db(
             supabase.table("projects")
             .select("*")
+            .ilike("title", f"%{query_text}%")
             .order("id", desc=True)
-            .limit(200)
+            .limit(10)
         )
-        needle = query_text.casefold()
-        projects = [p for p in (result.data or []) if needle in (
-            str(p.get("title", "")) + " " + str(p.get("category", "")) + " " +
-            str(p.get("description", "")) + " " + str(p.get("file_format", ""))
-        ).casefold()][:10]
+        projects = result.data or []
         await state.clear()
         if not projects:
             await message.answer(T[lang]["not_found"])
@@ -1053,233 +991,10 @@ async def show_projects(message: Message, lang: str):
         lines = ["📁 LOYIHALAR RO‘YXATI", ""]
         for p in projects:
             lines.append(f"ID: {p['id']} | {p['title']} | {p['category']}")
-        lines += ["", "Tahrirlash: admin menyusidagi ✏️ tugma", "O‘chirish: admin menyusidagi 🗑 tugma"]
         await message.answer("\n".join(lines)[:4000])
     except Exception:
         logger.exception("Loyihalar ro'yxatini olishda xato")
         await message.answer("❌ Loyihalar ro‘yxatini olishda xato.")
-
-
-@dp.message(FormatFilter.value)
-async def filter_projects_by_format(message: Message, state: FSMContext):
-    lang = await get_language(message.from_user.id)
-    value = (message.text or "").strip().upper().lstrip(".")
-    if value in {"BEKOR", "CANCEL", "ОТМЕНА"}:
-        await state.clear(); await show_main(message); return
-    if value not in {"DWG", "DXF", "PDF", "ZIP"}:
-        await message.answer("Faqat DWG, DXF, PDF yoki ZIP formatini yozing.")
-        return
-    try:
-        result = await db(supabase.table("projects").select("*").eq("file_format", value).order("id", desc=True).limit(20))
-        projects = result.data or []
-        await state.clear()
-        if not projects:
-            await message.answer(f"{value} formatida loyiha topilmadi.")
-            return
-        await message.answer(f"📄 {value} formatidagi loyihalar: {len(projects)} ta")
-        for project in projects:
-            await send_project(message, project, lang)
-    except Exception:
-        logger.exception("Format bo'yicha filtrlashda xato")
-        await state.clear()
-        await message.answer("❌ Format bo‘yicha qidirishda xatolik.")
-
-
-# =========================================================
-# FAVORITES, RATINGS, USER REQUESTS, PROJECT EDIT/DELETE
-# =========================================================
-async def show_favorites(message: Message, lang: str):
-    uid = message.from_user.id
-    try:
-        fav = await db(supabase.table("project_favorites").select("project_id").eq("telegram_id", uid))
-        ids = [int(x["project_id"]) for x in (fav.data or [])]
-        if not ids:
-            await message.answer(T[lang]["no_favorites"])
-            return
-        for pid in ids[:30]:
-            res = await db(supabase.table("projects").select("*").eq("id", pid).limit(1))
-            if res.data:
-                await send_project(message, res.data[0], lang)
-    except Exception:
-        logger.exception("Sevimlilarni ko'rsatishda xato")
-        await message.answer("❌ Sevimlilarni olishda xatolik.")
-
-
-@dp.message(Command("fav"))
-async def favorite_command(message: Message):
-    lang = await get_language(message.from_user.id)
-    parts = (message.text or "").split()
-    if len(parts) != 2 or not parts[1].isdigit():
-        await message.answer("Foydalanish: /fav LOYIHA_ID")
-        return
-    pid = int(parts[1])
-    uid = message.from_user.id
-    try:
-        existing = await db(supabase.table("project_favorites").select("project_id").eq("telegram_id", uid).eq("project_id", pid))
-        if existing.data:
-            await db(supabase.table("project_favorites").delete().eq("telegram_id", uid).eq("project_id", pid))
-            await message.answer("⭐ Sevimlilardan olib tashlandi.")
-        else:
-            await db(supabase.table("project_favorites").insert({"telegram_id": uid, "project_id": pid}))
-            await message.answer("⭐ Sevimlilarga qo‘shildi.")
-    except Exception:
-        logger.exception("Sevimliga qo'shishda xato")
-        await message.answer("❌ Amal bajarilmadi. Loyiha ID sini tekshiring.")
-
-
-@dp.message(Command("rate"))
-async def rate_command(message: Message):
-    parts = (message.text or "").split()
-    if len(parts) != 3 or not parts[1].isdigit() or not parts[2].isdigit() or not 1 <= int(parts[2]) <= 5:
-        await message.answer("Foydalanish: /rate LOYIHA_ID 1-5\nMasalan: /rate 12 5")
-        return
-    try:
-        await db(supabase.table("project_ratings").upsert({
-            "telegram_id": message.from_user.id,
-            "project_id": int(parts[1]),
-            "rating": int(parts[2]),
-        }, on_conflict="telegram_id,project_id"))
-        await message.answer("⭐ Bahoyingiz saqlandi. Rahmat!")
-    except Exception:
-        logger.exception("Reyting saqlashda xato")
-        await message.answer("❌ Baho saqlanmadi. Loyiha ID sini tekshiring.")
-
-
-@dp.message(UserRequest.text)
-async def save_user_request(message: Message, state: FSMContext):
-    lang = await get_language(message.from_user.id)
-    if not message.text or len(message.text.strip()) < 3:
-        await message.answer(T[lang]["request_prompt"])
-        return
-    request_text = message.text.strip()
-    try:
-        await db(supabase.table("project_requests").insert({
-            "telegram_id": message.from_user.id,
-            "request_text": request_text[:3000],
-            "status": "new",
-        }))
-        admins = await db(supabase.table("bot_admins").select("telegram_id"))
-        admin_ids = {SUPER_ADMIN_ID} | {int(x["telegram_id"]) for x in (admins.data or [])}
-        for aid in admin_ids:
-            try:
-                await bot.send_message(aid, f"📝 Yangi loyiha so‘rovi\nFoydalanuvchi: {message.from_user.id}\n\n{request_text[:3000]}")
-            except Exception:
-                logger.warning("So'rov admin %s ga yuborilmadi", aid)
-        await state.clear()
-        await message.answer(T[lang]["request_saved"], reply_markup=main_keyboard(lang, await is_admin(message.from_user.id)))
-    except Exception:
-        logger.exception("Loyiha so'rovini saqlashda xato")
-        await message.answer("❌ So‘rov yuborilmadi. Qayta urinib ko‘ring.")
-
-
-@dp.message(ProjectAdmin.edit_id)
-async def project_edit_get_id(message: Message, state: FSMContext):
-    lang = await get_language(message.from_user.id)
-    if not await is_admin(message.from_user.id):
-        await state.clear(); await message.answer(T[lang]["admin_only"]); return
-    raw = (message.text or "").strip()
-    if not raw.isdigit():
-        await message.answer(T[lang]["enter_project_id"]); return
-    res = await db(supabase.table("projects").select("id,title,category,description").eq("id", int(raw)).limit(1))
-    if not res.data:
-        await message.answer("❌ Bunday loyiha topilmadi. ID ni qayta yuboring."); return
-    await state.update_data(project_id=int(raw), old_project=res.data[0])
-    await state.set_state(ProjectAdmin.edit_title)
-    await message.answer(T[lang]["enter_new_title"] + f"\nHozirgi nomi: {res.data[0].get('title','')}")
-
-
-@dp.message(ProjectAdmin.edit_title)
-async def project_edit_title(message: Message, state: FSMContext):
-    lang = await get_language(message.from_user.id)
-    if not await is_admin(message.from_user.id):
-        await state.clear(); await message.answer(T[lang]["admin_only"]); return
-    data = await state.get_data()
-    title = (message.text or "").strip()
-    if not title:
-        await message.answer(T[lang]["enter_new_title"]); return
-    if title != "-":
-        await state.update_data(new_title=title[:200])
-    else:
-        await state.update_data(new_title=data["old_project"]["title"])
-    await state.set_state(ProjectAdmin.edit_category)
-    await message.answer(T[lang]["enter_category"], reply_markup=category_keyboard(lang))
-
-
-@dp.message(ProjectAdmin.edit_category)
-async def project_edit_category(message: Message, state: FSMContext):
-    lang = await get_language(message.from_user.id)
-    canonical = CATEGORY_TO_CANONICAL.get(message.text or "")
-    data = await state.get_data()
-    if canonical:
-        await state.update_data(new_category=canonical)
-    elif message.text == "-":
-        await state.update_data(new_category=data["old_project"]["category"])
-    else:
-        await message.answer("Kategoriya tanlang yoki - yuboring.", reply_markup=category_keyboard(lang)); return
-    await state.set_state(ProjectAdmin.edit_description)
-    await message.answer(T[lang]["enter_new_description"], reply_markup=ReplyKeyboardRemove())
-
-
-@dp.message(ProjectAdmin.edit_description)
-async def project_edit_description(message: Message, state: FSMContext):
-    lang = await get_language(message.from_user.id)
-    if not await is_admin(message.from_user.id):
-        await state.clear(); await message.answer(T[lang]["admin_only"]); return
-    data = await state.get_data()
-    desc = (message.text or "").strip()
-    if desc == "-":
-        desc = data["old_project"].get("description") or ""
-    try:
-        await db(supabase.table("projects").update({
-            "title": data["new_title"],
-            "category": data["new_category"],
-            "description": desc[:3000],
-        }).eq("id", data["project_id"]))
-        await state.clear()
-        await message.answer("✅ Loyiha ma’lumotlari tahrirlandi.", reply_markup=main_keyboard(lang, True))
-    except Exception:
-        logger.exception("Loyihani tahrirlashda xato")
-        await message.answer("❌ Tahrirlashda xatolik. Render Logs'ni tekshiring.")
-
-
-@dp.message(ProjectAdmin.delete_id)
-async def project_delete_get_id(message: Message, state: FSMContext):
-    lang = await get_language(message.from_user.id)
-    if not await is_admin(message.from_user.id):
-        await state.clear(); await message.answer(T[lang]["admin_only"]); return
-    raw = (message.text or "").strip()
-    if not raw.isdigit():
-        await message.answer(T[lang]["enter_project_id"]); return
-    res = await db(supabase.table("projects").select("id,title").eq("id", int(raw)).limit(1))
-    if not res.data:
-        await message.answer("❌ Bunday loyiha topilmadi. ID ni qayta yuboring."); return
-    await state.update_data(project_id=int(raw), project_title=res.data[0]["title"])
-    await state.set_state(ProjectAdmin.delete_confirm)
-    await message.answer(f"🗑 {res.data[0]['title']}\n" + T[lang]["confirm_delete"])
-
-
-@dp.message(ProjectAdmin.delete_confirm)
-async def project_delete_confirm(message: Message, state: FSMContext):
-    lang = await get_language(message.from_user.id)
-    if not await is_admin(message.from_user.id):
-        await state.clear(); await message.answer(T[lang]["admin_only"]); return
-    answer = (message.text or "").strip().casefold()
-    yes = answer in {"ha", "да", "yes", "ҳа"}
-    no = answer in {"yo‘q", "yo'q", "нет", "no", "не"}
-    if not yes and not no:
-        await message.answer(T[lang]["confirm_delete"]); return
-    data = await state.get_data()
-    try:
-        if yes:
-            await db(supabase.table("projects").delete().eq("id", data["project_id"]))
-            await message.answer(f"✅ {data['project_title']} o‘chirildi.")
-        else:
-            await message.answer("❎ O‘chirish bekor qilindi.")
-        await state.clear()
-        await message.answer(T[lang]["admin_menu"], reply_markup=main_keyboard(lang, True))
-    except Exception:
-        logger.exception("Loyihani o'chirishda xato")
-        await message.answer("❌ O‘chirishda xatolik. Render Logs'ni tekshiring.")
 
 
 # =========================================================
