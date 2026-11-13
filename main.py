@@ -11,7 +11,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import (
-    Message, Update, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+    Message, Update, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton,
+    ReplyKeyboardMarkup, KeyboardButton
 )
 from supabase import create_client
 
@@ -435,12 +436,18 @@ def category_keyboard(lang: str):
 
 
 def admin_manage_keyboard(lang: str):
-    return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text=T[lang]["admin_add"], callback_data="adm:add")],
-        [InlineKeyboardButton(text=T[lang]["admin_remove"], callback_data="adm:remove")],
-        [InlineKeyboardButton(text=T[lang]["admin_list"], callback_data="adm:list")],
-        [InlineKeyboardButton(text=T[lang]["back"], callback_data="menu:back")],
-    ])
+    """Admin tugmalari chat pastida doimiy ReplyKeyboard bo'lib turadi."""
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text=T[lang]["admin_add"])],
+            [KeyboardButton(text=T[lang]["admin_remove"])],
+            [KeyboardButton(text=T[lang]["admin_list"])],
+            [KeyboardButton(text=T[lang]["back"])],
+        ],
+        resize_keyboard=True,
+        is_persistent=True,
+        input_field_placeholder="Admin boshqaruvi",
+    )
 
 
 def flow_keyboard(lang: str, skip: bool = False):
@@ -538,7 +545,10 @@ async def inline_menu_router(callback: CallbackQuery, state: FSMContext):
         if user_id != SUPER_ADMIN_ID:
             await callback.message.answer(T[lang]["super_only"])
         else:
-            await callback.message.edit_text(T[lang]["admins"], reply_markup=admin_manage_keyboard(lang))
+            await callback.message.answer(
+                T[lang]["admins"],
+                reply_markup=admin_manage_keyboard(lang)
+            )
 
 
 @dp.callback_query(F.data.startswith("cat:"))
@@ -555,22 +565,34 @@ async def choose_project_category(callback: CallbackQuery):
     await send_category_projects(callback.message, canonical, lang)
 
 
-@dp.callback_query(F.data.startswith("adm:"))
-async def admin_menu_router(callback: CallbackQuery, state: FSMContext):
-    lang = await get_language(callback.from_user.id)
-    if callback.from_user.id != SUPER_ADMIN_ID:
-        await callback.answer(T[lang]["super_only"], show_alert=True)
+@dp.message(F.text.in_([T[code][key] for code in T for key in ("admin_add", "admin_remove", "admin_list", "back")]))
+async def admin_menu_router(message: Message, state: FSMContext):
+    lang = await get_language(message.from_user.id)
+    if message.from_user.id != SUPER_ADMIN_ID:
         return
-    action = callback.data.split(":", 1)[1]
-    await callback.answer()
+
+    action_by_text = {
+        T[code]["admin_add"]: "add" for code in T
+    }
+    action_by_text.update({T[code]["admin_remove"]: "remove" for code in T})
+    action_by_text.update({T[code]["admin_list"]: "list" for code in T})
+    action_by_text.update({T[code]["back"]: "back" for code in T})
+    action = action_by_text.get((message.text or "").strip())
+
     if action == "add":
         await state.set_state(AdminManage.add_id)
-        await callback.message.edit_text(T[lang]["enter_admin_id"], reply_markup=flow_keyboard(lang))
+        await message.answer(T[lang]["enter_admin_id"], reply_markup=flow_keyboard(lang))
     elif action == "remove":
         await state.set_state(AdminManage.remove_id)
-        await callback.message.edit_text(T[lang]["enter_remove_id"], reply_markup=flow_keyboard(lang))
+        await message.answer(T[lang]["enter_remove_id"], reply_markup=flow_keyboard(lang))
     elif action == "list":
-        await show_admins(callback.message, lang)
+        await show_admins(message, lang)
+    elif action == "back":
+        await state.clear()
+        await message.answer(
+            T[lang]["admin_menu"],
+            reply_markup=main_keyboard(lang, await is_admin(message.from_user.id))
+        )
 
 
 @dp.callback_query(F.data == "flow:cancel")
