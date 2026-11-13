@@ -68,7 +68,6 @@ T = {
         "menu": "🏗 Bosh menyu",
         "search": "🔎 Loyiha qidirish",
         "contact": "📞 Aloqa",
-        "top": "🔥 TOP-10 loyihalar",
         "settings": "⚙️ Sozlamalar",
         "choose_category": "📂 Kategoriyani tanlang yoki menyudan foydalaning:",
         "choose_language": "🌐 Tilni tanlang:",
@@ -76,8 +75,6 @@ T = {
         "searching": "Qidirilmoqda...",
         "not_found": "😕 Hech qanday loyiha topilmadi.",
         "results": "🔎 Qidiruv natijalari:",
-        "top_empty": "Hozircha yuklab olingan loyihalar yo‘q.",
-        "top_title": "🔥 ENG KO‘P YUKLAB OLINGAN LOYIHALAR",
         "downloads": "Yuklab olishlar",
         "contact_prompt": "✍️ Adminga yubormoqchi bo‘lgan xabaringizni yozing:",
         "contact_sent": "✅ Xabaringiz adminga yuborildi.",
@@ -117,7 +114,6 @@ T = {
         "back": "🔙 Bosh menyu",
         "cancel": "❌ Bekor qilish",
         "admin_added_by": "Admin qo‘shildi: {id}",
-        "top_line": "{n}. {title} — {count} marta",
     },
     "ru": {
         "welcome": "👋 Добро пожаловать в AutoCAD Projects Bot!\nВыберите язык:",
@@ -125,7 +121,6 @@ T = {
         "menu": "🏗 Главное меню",
         "search": "🔎 Поиск проектов",
         "contact": "📞 Связаться с администратором",
-        "top": "🔥 ТОП-10 проектов",
         "settings": "⚙️ Настройки",
         "choose_category": "📂 Выберите категорию или воспользуйтесь меню:",
         "choose_language": "🌐 Выберите язык:",
@@ -133,8 +128,6 @@ T = {
         "searching": "Идёт поиск...",
         "not_found": "😕 Проекты не найдены.",
         "results": "🔎 Результаты поиска:",
-        "top_empty": "Пока нет скачанных проектов.",
-        "top_title": "🔥 ТОП-10 СКАЧИВАЕМЫХ ПРОЕКТОВ",
         "downloads": "Скачиваний",
         "contact_prompt": "✍️ Напишите сообщение администратору:",
         "contact_sent": "✅ Сообщение отправлено администратору.",
@@ -174,7 +167,6 @@ T = {
         "back": "🔙 Главное меню",
         "cancel": "❌ Отмена",
         "admin_added_by": "Добавлен администратор: {id}",
-        "top_line": "{n}. {title} — {count} раз",
     },
     "en": {
         "welcome": "👋 Welcome to AutoCAD Projects Bot!\nChoose your language:",
@@ -182,7 +174,6 @@ T = {
         "menu": "🏗 Main menu",
         "search": "🔎 Search projects",
         "contact": "📞 Contact admin",
-        "top": "🔥 Top 10 projects",
         "settings": "⚙️ Settings",
         "choose_category": "📂 Choose a category or use the menu:",
         "choose_language": "🌐 Choose your language:",
@@ -190,8 +181,6 @@ T = {
         "searching": "Searching...",
         "not_found": "😕 No projects found.",
         "results": "🔎 Search results:",
-        "top_empty": "No projects have been downloaded yet.",
-        "top_title": "🔥 TOP 10 MOST DOWNLOADED PROJECTS",
         "downloads": "Downloads",
         "contact_prompt": "✍️ Write your message to the administrator:",
         "contact_sent": "✅ Your message has been sent to the administrator.",
@@ -231,7 +220,6 @@ T = {
         "back": "🔙 Main menu",
         "cancel": "❌ Cancel",
         "admin_added_by": "Administrator added: {id}",
-        "top_line": "{n}. {title} — {count} downloads",
     },
     "tg": {
         "welcome": "👋 Ба AutoCAD Projects Bot хуш омадед!\nЗабонро интихоб кунед:",
@@ -239,7 +227,6 @@ T = {
         "menu": "🏗 Менюи асосӣ",
         "search": "🔎 Ҷустуҷӯи лоиҳа",
         "contact": "📞 Тамос бо маъмур",
-        "top": "🔥 ТОП-10 лоиҳа",
         "settings": "⚙️ Танзимот",
         "choose_category": "📂 Категорияро интихоб кунед ё аз меню истифода баред:",
         "choose_language": "🌐 Забонро интихоб кунед:",
@@ -247,8 +234,6 @@ T = {
         "searching": "Ҷустуҷӯ рафта истодааст...",
         "not_found": "😕 Лоиҳа ёфт нашуд.",
         "results": "🔎 Натиҷаи ҷустуҷӯ:",
-        "top_empty": "Ҳоло лоиҳаҳои боргиришуда нестанд.",
-        "top_title": "🔥 10 ЛОИҲАИ МАШҲУР",
         "downloads": "Боргирӣ",
         "contact_prompt": "✍️ Паёми худро ба маъмур нависед:",
         "contact_sent": "✅ Паём ба маъмур фиристода шуд.",
@@ -288,75 +273,20 @@ T = {
         "back": "🔙 Менюи асосӣ",
         "cancel": "❌ Бекор кардан",
         "admin_added_by": "Маъмур илова шуд: {id}",
-        "top_line": "{n}. {title} — {count} бор",
         "language_saved": "✅ Забон нигоҳ дошта шуд.",
     },
 }
 
-CATEGORIES = [
-    "🏠 Uy",
-    "🏢 Ofis",
-    "🏭 Zavod",
-    "🛋 Interyer dizayn",
-    "🏫 Maktab va bog‘cha",
-    "🛍 Savdo markazi",
-    "🛣 Yo‘l va ko‘prik",
-    "🏗 Boshqa binolar",
-    "☕ Kichik kafelar",
-    "🚏 Aqlli bekatlar",
-    "🚗 Avtomobillar",
-    "📦 Buyumlar",
-    "⚡ Elektr chizmalari",
-    "🚰 Suv va kanalizatsiya",
-    "🧱 Konstruksiya va fundament",
-    "🪑 Mebel chizmalari",
-    "🌳 Landshaft dizayn",
-    "🧩 Tayyor DWG bloklar",
-    "📐 Tayyor shablonlar",
-    "🎨 Hatch va teksturalar",
-    "📏 Tayyor detallar",
-    "🔤 Shriftlar va chiziq turlari",
-    "🚜 Ferma va chorvachilik loyihalari",
-]
+CATEGORIES = ['🏠 Uy', '🏢 Ofis', '🛋 Interyer dizayn', '🏫 Maktab va bog‘cha', '🛍 Savdo markazi', '🛣 Yo‘l va ko‘prik', '🏗 Boshqa binolar', '☕ Kichik kafelar', '🚏 Aqlli bekatlar', '🚗 Avtomobillar', '⚡ Elektr chizmalari', '🧱 Konstruksiya va fundament', '🪑 Mebel chizmalari', '🌳 Landshaft dizayn', '📐 Tayyor shablonlar', '🎨 Hatch va teksturalar', '🚜 Ferma va chorvachilik loyihalari']
 
-CATEGORY_TRANSLATIONS = {
-    "uz": CATEGORIES,
-    "ru": [
-        "🏠 Дом", "🏢 Офис", "🏭 Завод", "🛋 Дизайн интерьера",
-        "🏫 Школа и детский сад", "🛍 Торговый центр", "🛣 Дороги и мосты",
-        "🏗 Другие здания", "☕ Небольшие кафе", "🚏 Умные остановки",
-        "🚗 Автомобили", "📦 Предметы", "⚡ Электрические схемы",
-        "🚰 Водоснабжение и канализация", "🧱 Конструкции и фундамент",
-        "🪑 Чертежи мебели", "🌳 Ландшафтный дизайн", "🧩 Готовые DWG-блоки",
-        "📐 Готовые шаблоны", "🎨 Штриховки и текстуры", "📏 Готовые детали",
-        "🔤 Шрифты и типы линий", "🚜 Фермы и животноводство",
-    ],
-    "en": [
-        "🏠 House", "🏢 Office", "🏭 Factory", "🛋 Interior design",
-        "🏫 School and kindergarten", "🛍 Shopping mall", "🛣 Roads and bridges",
-        "🏗 Other buildings", "☕ Small cafes", "🚏 Smart bus stops",
-        "🚗 Vehicles", "📦 Objects", "⚡ Electrical drawings",
-        "🚰 Water supply and sewerage", "🧱 Structures and foundations",
-        "🪑 Furniture drawings", "🌳 Landscape design", "🧩 Ready DWG blocks",
-        "📐 Ready templates", "🎨 Hatches and textures", "📏 Ready details",
-        "🔤 Fonts and linetypes", "🚜 Farm and livestock projects",
-    ],
-    "tg": [
-        "🏠 Хона", "🏢 Идора", "🏭 Завод", "🛋 Тарҳи дохилӣ",
-        "🏫 Мактаб ва кӯдакистон", "🛍 Маркази савдо", "🛣 Роҳ ва пул",
-        "🏗 Биноҳои дигар", "☕ Қаҳвахонаҳои хурд", "🚏 Истгоҳҳои ҳушманд",
-        "🚗 Автомобилҳо", "📦 Ашё", "⚡ Нақшаҳои барқӣ",
-        "🚰 Обтаъминкунӣ ва канализатсия", "🧱 Сохтор ва таҳкурсӣ",
-        "🪑 Нақшаҳои мебел", "🌳 Тарҳи ландшафт", "🧩 Блокҳои тайёри DWG",
-        "📐 Шаблонҳои тайёр", "🎨 Ҳач ва текстураҳо", "📏 Ҷузъиёти тайёр",
-        "🔤 Ҳарфҳо ва намудҳои хат", "🚜 Лоиҳаҳои ферма ва чорводорӣ",
-    ],
-}
+CATEGORY_TRANSLATIONS = {'uz': ['🏠 Uy', '🏢 Ofis', '🛋 Interyer dizayn', '🏫 Maktab va bog‘cha', '🛍 Savdo markazi', '🛣 Yo‘l va ko‘prik', '🏗 Boshqa binolar', '☕ Kichik kafelar', '🚏 Aqlli bekatlar', '🚗 Avtomobillar', '⚡ Elektr chizmalari', '🧱 Konstruksiya va fundament', '🪑 Mebel chizmalari', '🌳 Landshaft dizayn', '📐 Tayyor shablonlar', '🎨 Hatch va teksturalar', '🚜 Ferma va chorvachilik loyihalari'], 'ru': ['🏠 Дом', '🏢 Офис', '🛋 Дизайн интерьера', '🏫 Школа и детский сад', '🛍 Торговый центр', '🛣 Дороги и мосты', '🏗 Другие здания', '☕ Небольшие кафе', '🚏 Умные остановки', '🚗 Автомобили', '⚡ Электрические схемы', '🧱 Конструкции и фундамент', '🪑 Чертежи мебели', '🌳 Ландшафтный дизайн', '📐 Готовые шаблоны', '🎨 Штриховки и текстуры', '🚜 Фермы и животноводство'], 'en': ['🏠 House', '🏢 Office', '🛋 Interior design', '🏫 School and kindergarten', '🛍 Shopping mall', '🛣 Roads and bridges', '🏗 Other buildings', '☕ Small cafes', '🚏 Smart bus stops', '🚗 Vehicles', '⚡ Electrical drawings', '🧱 Structures and foundations', '🪑 Furniture drawings', '🌳 Landscape design', '📐 Ready templates', '🎨 Hatches and textures', '🚜 Farm and livestock projects'], 'tg': ['🏠 Хона', '🏢 Идора', '🛋 Тарҳи дохилӣ', '🏫 Мактаб ва кӯдакистон', '🛍 Маркази савдо', '🛣 Роҳ ва пул', '🏗 Биноҳои дигар', '☕ Қаҳвахонаҳои хурд', '🚏 Истгоҳҳои ҳушманд', '🚗 Автомобилҳо', '⚡ Нақшаҳои барқӣ', '🧱 Сохтор ва таҳкурсӣ', '🪑 Нақшаҳои мебел', '🌳 Тарҳи ландшафт', '📐 Шаблонҳои тайёр', '🎨 Ҳач ва текстураҳо', '🚜 Лоиҳаҳои ферма ва чорводорӣ']}
 
 CATEGORY_TO_CANONICAL = {
     CATEGORY_TRANSLATIONS[lang][i]: CATEGORIES[i]
     for lang in LANGUAGES for i in range(len(CATEGORIES))
 }
+
+
 
 
 
@@ -456,8 +386,7 @@ def language_keyboard():
 
 def main_keyboard(lang: str, admin: bool = False):
     rows = [
-        [InlineKeyboardButton(text=T[lang]["search"], callback_data="menu:search"),
-         InlineKeyboardButton(text=T[lang]["top"], callback_data="menu:top")],
+        [InlineKeyboardButton(text=T[lang]["search"], callback_data="menu:search")],
         [InlineKeyboardButton(text=T[lang]["contact"], callback_data="menu:contact"),
          InlineKeyboardButton(text=T[lang]["settings"], callback_data="menu:settings")],
     ]
@@ -581,8 +510,6 @@ async def inline_menu_router(callback: CallbackQuery, state: FSMContext):
     elif action == "contact":
         await state.set_state(ContactAdmin.message)
         await callback.message.edit_text(T[lang]["contact_prompt"], reply_markup=flow_keyboard(lang))
-    elif action == "top":
-        await show_top(callback.message, lang)
     elif action == "add" and await is_admin(user_id):
         await state.set_state(AddProject.title)
         await callback.message.edit_text(T[lang]["enter_title"], reply_markup=flow_keyboard(lang))
@@ -825,38 +752,6 @@ async def search_projects(message: Message, state: FSMContext):
         logger.exception("Loyiha qidirishda xato")
         await state.clear()
         await message.answer("❌ Search error. Please try again.")
-
-
-async def show_top(message: Message, lang: str):
-    try:
-        result = await db(
-            supabase.table("projects")
-            .select("id,title,category,telegram_file_id,description,download_count")
-            .order("download_count", desc=True)
-            .order("id", desc=True)
-            .limit(10)
-        )
-        projects = result.data or []
-        if not projects:
-            await message.answer(T[lang]["top_empty"])
-            return
-        lines = [T[lang]["top_title"], ""]
-        for index, project in enumerate(projects, 1):
-            lines.append(T[lang]["top_line"].format(
-                n=index,
-                title=project["title"],
-                count=project.get("download_count") or 0
-            ))
-        await message.answer("\n".join(lines))
-        for project in projects:
-            await message.answer_document(
-                document=project["telegram_file_id"],
-                caption=f"📁 {project['title']}"
-            )
-            await increment_download(project["id"])
-    except Exception:
-        logger.exception("TOP-10 chiqarishda xato")
-        await message.answer("❌ Error loading top projects.")
 
 
 # =========================================================
