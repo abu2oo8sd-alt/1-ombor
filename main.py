@@ -408,12 +408,9 @@ def main_keyboard(lang: str, admin: bool = False):
         [InlineKeyboardButton(text=T[lang]["contact"], callback_data="menu:contact"),
          InlineKeyboardButton(text=T[lang]["settings"], callback_data="menu:settings")],
     ]
+    # Project add/list actions are moved to the persistent reply keyboard.
     if admin:
-        rows += [
-            [InlineKeyboardButton(text=T[lang]["add_project"], callback_data="menu:add"),
-             InlineKeyboardButton(text=T[lang]["projects"], callback_data="menu:projects")],
-            [InlineKeyboardButton(text=T[lang]["admins"], callback_data="menu:admins")],
-        ]
+        rows.append([InlineKeyboardButton(text=T[lang]["admins"], callback_data="menu:admins")])
     names = CATEGORY_TRANSLATIONS[lang]
     for i in range(0, len(names), 2):
         row = [InlineKeyboardButton(text=names[i], callback_data=f"cat:{i}")]
@@ -421,6 +418,16 @@ def main_keyboard(lang: str, admin: bool = False):
             row.append(InlineKeyboardButton(text=names[i + 1], callback_data=f"cat:{i+1}"))
         rows.append(row)
     return InlineKeyboardMarkup(inline_keyboard=rows)
+
+
+def admin_reply_keyboard(lang: str):
+    return ReplyKeyboardMarkup(
+        keyboard=[[KeyboardButton(text=T[lang]["add_project"]),
+                   KeyboardButton(text=T[lang]["projects"]) ]],
+        resize_keyboard=True,
+        is_persistent=True,
+        input_field_placeholder=T[lang]["admin_menu"],
+    )
 
 
 def category_keyboard(lang: str):
@@ -436,18 +443,12 @@ def category_keyboard(lang: str):
 
 
 def admin_manage_keyboard(lang: str):
-    """Admin tugmalari chat pastida doimiy ReplyKeyboard bo'lib turadi."""
-    return ReplyKeyboardMarkup(
-        keyboard=[
-            [KeyboardButton(text=T[lang]["admin_add"])],
-            [KeyboardButton(text=T[lang]["admin_remove"])],
-            [KeyboardButton(text=T[lang]["admin_list"])],
-            [KeyboardButton(text=T[lang]["back"])],
-        ],
-        resize_keyboard=True,
-        is_persistent=True,
-        input_field_placeholder="Admin boshqaruvi",
-    )
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=T[lang]["admin_add"], callback_data="adm:add")],
+        [InlineKeyboardButton(text=T[lang]["admin_remove"], callback_data="adm:remove")],
+        [InlineKeyboardButton(text=T[lang]["admin_list"], callback_data="adm:list")],
+        [InlineKeyboardButton(text=T[lang]["back"], callback_data="menu:back")],
+    ])
 
 
 def flow_keyboard(lang: str, skip: bool = False):
@@ -465,6 +466,8 @@ async def show_main(message: Message):
         T[lang]["admin_menu"] if admin else T[lang]["choose_category"],
         reply_markup=main_keyboard(lang, admin)
     )
+    if admin:
+        await message.answer(T[lang]["admin_menu"], reply_markup=admin_reply_keyboard(lang))
 
 
 # =========================================================
@@ -488,28 +491,36 @@ async def choose_language(callback: CallbackQuery, state: FSMContext):
     await state.clear()
     admin = await is_admin(callback.from_user.id)
     await callback.answer(T[lang]["language_saved"])
-    try:
-        await callback.message.edit_text(
-            T[lang]["language_saved"] + "\n\n" +
-            (T[lang]["admin_menu"] if admin else T[lang]["choose_category"]),
-            reply_markup=main_keyboard(lang, admin)
-        )
-    except Exception:
-        await callback.message.answer(
-            T[lang]["language_saved"] + "\n\n" +
-            (T[lang]["admin_menu"] if admin else T[lang]["choose_category"]),
-            reply_markup=main_keyboard(lang, admin)
-        )
+    await callback.message.answer(
+        T[lang]["language_saved"] + "\n\n" +
+        (T[lang]["admin_menu"] if admin else T[lang]["choose_category"]),
+        reply_markup=main_keyboard(lang, admin)
+    )
+    if admin:
+        await callback.message.answer(T[lang]["admin_menu"], reply_markup=admin_reply_keyboard(lang))
 
 
 @dp.message(Command("cancel"))
 async def cancel_command(message: Message, state: FSMContext):
     await state.clear()
     lang = await get_language(message.from_user.id)
-    await message.answer(
-        T[lang]["cancelled"],
-        reply_markup=main_keyboard(lang, await is_admin(message.from_user.id))
-    )
+    admin = await is_admin(message.from_user.id)
+    await message.answer(T[lang]["cancelled"], reply_markup=main_keyboard(lang, admin))
+    if admin:
+        await message.answer(T[lang]["admin_menu"], reply_markup=admin_reply_keyboard(lang))
+
+
+@dp.message(StateFilter(None), F.text)
+async def admin_reply_keyboard_router(message: Message, state: FSMContext):
+    lang = await get_language(message.from_user.id)
+    if not await is_admin(message.from_user.id):
+        return
+    pressed = (message.text or "").strip()
+    if pressed == T[lang]["add_project"]:
+        await state.set_state(AddProject.title)
+        await message.answer(T[lang]["enter_title"], reply_markup=flow_keyboard(lang))
+    elif pressed == T[lang]["projects"]:
+        await show_projects(message, lang)
 
 
 @dp.callback_query(F.data.startswith("menu:"))
@@ -545,10 +556,7 @@ async def inline_menu_router(callback: CallbackQuery, state: FSMContext):
         if user_id != SUPER_ADMIN_ID:
             await callback.message.answer(T[lang]["super_only"])
         else:
-            await callback.message.answer(
-                T[lang]["admins"],
-                reply_markup=admin_manage_keyboard(lang)
-            )
+            await callback.message.edit_text(T[lang]["admins"], reply_markup=admin_manage_keyboard(lang))
 
 
 @dp.callback_query(F.data.startswith("cat:"))
@@ -565,34 +573,22 @@ async def choose_project_category(callback: CallbackQuery):
     await send_category_projects(callback.message, canonical, lang)
 
 
-@dp.message(F.text.in_([T[code][key] for code in T for key in ("admin_add", "admin_remove", "admin_list", "back")]))
-async def admin_menu_router(message: Message, state: FSMContext):
-    lang = await get_language(message.from_user.id)
-    if message.from_user.id != SUPER_ADMIN_ID:
+@dp.callback_query(F.data.startswith("adm:"))
+async def admin_menu_router(callback: CallbackQuery, state: FSMContext):
+    lang = await get_language(callback.from_user.id)
+    if callback.from_user.id != SUPER_ADMIN_ID:
+        await callback.answer(T[lang]["super_only"], show_alert=True)
         return
-
-    action_by_text = {
-        T[code]["admin_add"]: "add" for code in T
-    }
-    action_by_text.update({T[code]["admin_remove"]: "remove" for code in T})
-    action_by_text.update({T[code]["admin_list"]: "list" for code in T})
-    action_by_text.update({T[code]["back"]: "back" for code in T})
-    action = action_by_text.get((message.text or "").strip())
-
+    action = callback.data.split(":", 1)[1]
+    await callback.answer()
     if action == "add":
         await state.set_state(AdminManage.add_id)
-        await message.answer(T[lang]["enter_admin_id"], reply_markup=flow_keyboard(lang))
+        await callback.message.edit_text(T[lang]["enter_admin_id"], reply_markup=flow_keyboard(lang))
     elif action == "remove":
         await state.set_state(AdminManage.remove_id)
-        await message.answer(T[lang]["enter_remove_id"], reply_markup=flow_keyboard(lang))
+        await callback.message.edit_text(T[lang]["enter_remove_id"], reply_markup=flow_keyboard(lang))
     elif action == "list":
-        await show_admins(message, lang)
-    elif action == "back":
-        await state.clear()
-        await message.answer(
-            T[lang]["admin_menu"],
-            reply_markup=main_keyboard(lang, await is_admin(message.from_user.id))
-        )
+        await show_admins(callback.message, lang)
 
 
 @dp.callback_query(F.data == "flow:cancel")
@@ -692,6 +688,7 @@ async def save_project(message: Message, state: FSMContext):
             T[lang]["saved"],
             reply_markup=main_keyboard(lang, True)
         )
+        await message.answer(T[lang]["admin_menu"], reply_markup=admin_reply_keyboard(lang))
         await state.clear()
     except Exception:
         logger.exception("Loyihani saqlashda xato")
