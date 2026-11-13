@@ -2,14 +2,14 @@ import os
 import asyncio
 import logging
 from aiohttp import web
-from aiogram import Bot, Dispatcher, F
+from aiogram import Bot, Dispatcher, F, BaseMiddleware
 from aiogram.filters import CommandStart, Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import (
-    Message, Update, ReplyKeyboardMarkup, KeyboardButton,
-    ReplyKeyboardRemove
+    Message, Update, CallbackQuery, ReplyKeyboardMarkup, KeyboardButton,
+    ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeyboardButton
 )
 from supabase import create_client
 
@@ -23,7 +23,9 @@ SUPABASE_URL = (os.getenv("SUPABASE_URL") or "").rstrip("/")
 SUPABASE_SECRET_KEY = os.getenv("SUPABASE_SECRET_KEY")
 
 SUPER_ADMIN_ID = 5000535277
-CHANNEL_ID = -1002328943187
+CHANNEL_ID = -1002328943187  # Loyihalar fayllari yuboriladigan kanal
+REQUIRED_CHANNEL = "@producto8"  # Majburiy obuna kanali
+REQUIRED_CHANNEL_URL = "https://t.me/producto8"
 WEBHOOK_PATH = "/telegram-webhook"
 
 required = {
@@ -59,6 +61,12 @@ LANGUAGES = {
 T = {
     "uz": {
         "welcome": "👋 AutoCAD Projects botiga xush kelibsiz!\nTilni tanlang:",
+        "sub_title": "🔒 Botdan foydalanish uchun avval kanalimizga a’zo bo‘ling.",
+        "sub_join": "📢 Kanalga a’zo bo‘lish",
+        "sub_check": "✅ A’zolikni tekshirish",
+        "sub_required": "❌ Siz hali kanalga a’zo emassiz. Avval a’zo bo‘ling, so‘ng tekshiring.",
+        "sub_ok": "✅ A’zolik tasdiqlandi! Endi botdan foydalanishingiz mumkin.",
+        "sub_error": "⚠️ A’zolikni tekshirib bo‘lmadi. Birozdan keyin qayta urinib ko‘ring.",
         "language_saved": "✅ Til saqlandi.",
         "choose_language": "🌐 Tilni tanlang:",
         "choose_category": "📂 Kerakli loyiha kategoriyasini tanlang:",
@@ -114,6 +122,12 @@ T = {
     },
     "ru": {
         "welcome": "👋 Добро пожаловать в AutoCAD Projects!\nВыберите язык:",
+        "sub_title": "🔒 Чтобы пользоваться ботом, сначала подпишитесь на наш канал.",
+        "sub_join": "📢 Подписаться на канал",
+        "sub_check": "✅ Проверить подписку",
+        "sub_required": "❌ Вы ещё не подписались на канал. Подпишитесь и проверьте снова.",
+        "sub_ok": "✅ Подписка подтверждена! Теперь вы можете пользоваться ботом.",
+        "sub_error": "⚠️ Не удалось проверить подписку. Попробуйте немного позже.",
         "language_saved": "✅ Язык сохранён.",
         "choose_language": "🌐 Выберите язык:",
         "choose_category": "📂 Выберите категорию проекта:",
@@ -169,6 +183,12 @@ T = {
     },
     "en": {
         "welcome": "👋 Welcome to AutoCAD Projects!\nChoose your language:",
+        "sub_title": "🔒 Please subscribe to our channel before using the bot.",
+        "sub_join": "📢 Subscribe to the channel",
+        "sub_check": "✅ Check subscription",
+        "sub_required": "❌ You have not joined the channel yet. Join it and check again.",
+        "sub_ok": "✅ Subscription confirmed! You can now use the bot.",
+        "sub_error": "⚠️ Could not verify your subscription. Please try again later.",
         "language_saved": "✅ Language saved.",
         "choose_language": "🌐 Choose your language:",
         "choose_category": "📂 Choose a project category:",
@@ -337,6 +357,86 @@ async def is_admin(user_id: int) -> bool:
         return False
 
 # =========================================================
+# REQUIRED CHANNEL SUBSCRIPTION
+# =========================================================
+async def is_subscribed(user_id: int) -> bool:
+    """Return True only when Telegram confirms the user joined @producto8."""
+    try:
+        member = await bot.get_chat_member(chat_id=REQUIRED_CHANNEL, user_id=user_id)
+        status = getattr(member.status, "value", member.status)
+        if status in ("creator", "administrator", "member"):
+            return True
+        return status == "restricted" and bool(getattr(member, "is_member", False))
+    except Exception:
+        logger.exception("Could not verify membership in %s", REQUIRED_CHANNEL)
+        raise
+
+
+def subscription_keyboard(lang: str):
+    tr = T.get(lang, T["uz"])
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=tr["sub_join"], url=REQUIRED_CHANNEL_URL)],
+        [InlineKeyboardButton(text=tr["sub_check"], callback_data="check_subscription")],
+    ])
+
+
+async def show_subscription_required(message: Message, lang: str):
+    tr = T.get(lang, T["uz"])
+    await message.answer(tr["sub_title"], reply_markup=subscription_keyboard(lang))
+
+
+class SubscriptionMiddleware(BaseMiddleware):
+    async def __call__(self, handler, event: Message, data: dict):
+        if not event.from_user:
+            return await handler(event, data)
+
+        # /start always reaches its handler so the user sees the subscription prompt.
+        if (event.text or "").split(maxsplit=1)[0] == "/start":
+            return await handler(event, data)
+
+        # Main and additional admins are allowed to manage the bot without subscribing.
+        if await is_admin(event.from_user.id):
+            return await handler(event, data)
+
+        lang = await get_language(event.from_user.id)
+        try:
+            joined = await is_subscribed(event.from_user.id)
+        except Exception:
+            await event.answer(T[lang]["sub_error"])
+            return
+
+        if not joined:
+            await show_subscription_required(event, lang)
+            return
+
+        return await handler(event, data)
+
+
+dp.message.middleware(SubscriptionMiddleware())
+
+
+@dp.callback_query(F.data == "check_subscription")
+async def check_subscription_callback(callback: CallbackQuery):
+    user_id = callback.from_user.id
+    lang = await get_language(user_id)
+    try:
+        joined = await is_subscribed(user_id)
+    except Exception:
+        await callback.answer(T[lang]["sub_error"], show_alert=True)
+        return
+
+    if not joined:
+        await callback.answer(T[lang]["sub_required"], show_alert=True)
+        return
+
+    await callback.answer(T[lang]["sub_ok"])
+    await callback.message.answer(
+        T[lang]["welcome"],
+        reply_markup=language_keyboard(),
+    )
+
+
+# =========================================================
 # KEYBOARDS
 # =========================================================
 def language_keyboard():
@@ -413,8 +513,18 @@ async def show_main(message: Message):
 @dp.message(CommandStart())
 async def start(message: Message, state: FSMContext):
     await state.clear()
-    await save_user(message.from_user.id, await get_language(message.from_user.id))
     lang = await get_language(message.from_user.id)
+
+    if not await is_admin(message.from_user.id):
+        try:
+            if not await is_subscribed(message.from_user.id):
+                await show_subscription_required(message, lang)
+                return
+        except Exception:
+            await message.answer(T[lang]["sub_error"])
+            return
+
+    await save_user(message.from_user.id, lang)
     await message.answer(T[lang]["welcome"], reply_markup=language_keyboard())
 
 @dp.message(F.text.in_(list(LANGUAGES.values())))
